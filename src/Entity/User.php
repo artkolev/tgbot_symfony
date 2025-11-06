@@ -13,7 +13,7 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private string $id;
+    private ?string $id = null;
 
     #[ORM\Column]
     private bool $is_bot = false;
@@ -45,13 +45,6 @@ class User
     public function getId(): ?string
     {
         return $this->id;
-    }
-
-    public function setId(string $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     public function isBot(): ?bool
