@@ -19,3 +19,26 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+*.patch
+*.diff
+*.orig
+*.rej
+*.cache
+
+# Файлы IDE
+.idea
+.vscode
+.settings
+.buildpath
+nbproject
+*.code-workspace
+
+!.gitignore
+!.chef
+
+# windows thumbnail cache
+Thumbs.db
+
+# composer itself is not needed
+composer.phar
