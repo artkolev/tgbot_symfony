@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -12,34 +13,34 @@ class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BIGINT)]
     private ?string $id = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $is_bot = false;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private string $first_name = '';
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $last_name = null;
 
-    #[ORM\Column(length: 191, nullable: true)]
+    #[ORM\Column(type: Types::STRING,length: 191, nullable: true)]
     private ?string $username = null;
 
-    #[ORM\Column(length: 10, nullable: true)]
+    #[ORM\Column(type: Types::STRING,length: 10, nullable: true)]
     private ?string $language_code = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $is_premium = false;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::BOOLEAN)]
     private bool $added_to_attachment_menu = false;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE,nullable: true)]
     private ?\DateTimeImmutable $updated_at = null;
 
     public function getId(): ?string

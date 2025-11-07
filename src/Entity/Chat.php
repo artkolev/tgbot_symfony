@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ChatRepository::class)]
+#[ORM\Index(name: 'old_id', columns: ['old_id'])]
 class Chat
 {
     #[ORM\Id]
