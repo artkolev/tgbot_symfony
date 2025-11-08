@@ -15,7 +15,7 @@ final class DefaultController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(?SecurityUser $user): Response
     {
-        if (!$user) {
+        if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
 
