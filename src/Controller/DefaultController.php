@@ -16,7 +16,7 @@ final class DefaultController extends AbstractController
     public function index(?SecurityUser $user): Response
     {
         if (!$user) {
-            return $this->redirectToRoute('security_login');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->redirectToRoute('admin_index');

@@ -14,4 +14,15 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
+
+    public function getCount(): int
+    {
+        $qb = $this->createQueryBuilder('u')
+            ->select('COUNT(u.id) as count')
+            ->setMaxResults(1);
+
+        $result = $qb->getQuery()->getArrayResult();
+
+        return $result[0]['count'] ?? 0;
+    }
 }

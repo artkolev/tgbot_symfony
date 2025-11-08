@@ -1,0 +1,9 @@
+<h1>Здравствуйте!</h1>
+
+<p>Чтобы сбросить пароль, перейдите по следующей ссылке.</p>
+
+<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+
+<p>Срок действия этой ссылки истекает через {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
+
+<p>Cheers!</p>

@@ -14,4 +14,15 @@ class MessageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Message::class);
     }
+
+    public function getCount(): int
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->select('COUNT(m.id) as count')
+            ->setMaxResults(1);
+
+        $result = $qb->getQuery()->getArrayResult();
+
+        return $result[0]['count'] ?? 0;
+    }
 }

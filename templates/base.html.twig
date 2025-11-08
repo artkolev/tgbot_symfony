@@ -15,14 +15,26 @@
     </head>
     <body>
         <header class="header">
-            <h1 class="visually-hidden">
-                Телеграм-бот
+            <h1 class="">
+                <a href="/"><img src="/favicon.png" alt="icon" height="128px"/> Телеграм-бот</a>
             </h1>
 
             <nav class="navbar navbar-expand-xl navbar-light bg-light">
                 <div class="container mt-4 mb-3">
-                    <a class="navbar-brand me-4 pr-2" href="{{ path('admin_index') }}">
-                        Главная
+                    <a class="navbar-brand me-4 pr-1" href="{{ path('admin_index') }}">
+                        {{ ux_icon('bi:backspace-reverse', {style: 'height: 1em'}) }} Общая информация
+                    </a>
+                    <a class="navbar-brand me-4 pr-1" href="{{ path('admin_chats') }}">
+                        {{ ux_icon('bi:backspace-reverse', {style: 'height: 1em'}) }} Чаты
+                    </a>
+                    <a class="navbar-brand me-4 pr-1" href="{{ path('admin_users') }}">
+                        {{ ux_icon('bi:backspace-reverse', {style: 'height: 1em'}) }} Пользователи
+                    </a>
+                    <a class="navbar-brand me-4 pr-1" href="{{ path('admin_commands') }}">
+                        {{ ux_icon('bi:backspace-reverse', {style: 'height: 1em'}) }} Комманды
+                    </a>
+                    <a class="navbar-brand me-4 pr-1" href="{{ path('admin_online') }}">
+                        {{ ux_icon('bi:backspace-reverse', {style: 'height: 1em'}) }} Online
                     </a>
                 </div>
             </nav>

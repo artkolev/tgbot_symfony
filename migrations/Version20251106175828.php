@@ -18,7 +18,7 @@ final class Version20251106175828 extends AbstractMigration
     {
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` bigint COMMENT \'Unique identifier for this user or bot\',
+  `id` bigint UNSIGNED AUTO_INCREMENT COMMENT \'Unique identifier for this user or bot\',
   `is_bot` tinyint(1) DEFAULT 0 COMMENT \'True, if this user is a bot\',
   `first_name` CHAR(255) NOT NULL DEFAULT \'\' COMMENT \'User\'\'s or bot\'\'s first name\',
   `last_name` CHAR(255) DEFAULT NULL COMMENT \'User\'\'s or bot\'\'s last name\',
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `chat` (
-  `id` bigint COMMENT \'Unique identifier for this chat\',
+  `id` bigint UNSIGNED AUTO_INCREMENT COMMENT \'Unique identifier for this chat\',
   `type` ENUM(\'private\', \'group\', \'supergroup\', \'channel\') NOT NULL COMMENT \'Type of chat, can be either private, group, supergroup or channel\',
   `title` CHAR(255) DEFAULT \'\' COMMENT \'Title, for supergroups, channels and group chats\',
   `username` CHAR(255) DEFAULT NULL COMMENT \'Username, for private chats, supergroups and channels if available\',
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `message_reaction_count` (
 
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `inline_query` (
-  `id` bigint UNSIGNED COMMENT \'Unique identifier for this query\',
+  `id` bigint UNSIGNED AUTO_INCREMENT COMMENT \'Unique identifier for this query\',
   `user_id` bigint NULL COMMENT \'Unique user identifier\',
   `location` CHAR(255) NULL DEFAULT NULL COMMENT \'Location of the user\',
   `query` TEXT NOT NULL COMMENT \'Text of the query\',
@@ -138,9 +138,9 @@ CREATE TABLE IF NOT EXISTS `chosen_inline_result` (
 
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `message` (
+  `id` bigint UNSIGNED AUTO_INCREMENT COMMENT \'Unique message identifier\',
   `chat_id` bigint COMMENT \'Unique chat identifier\',
   `sender_chat_id` bigint COMMENT \'Sender of the message, sent on behalf of a chat\',
-  `id` bigint UNSIGNED COMMENT \'Unique message identifier\',
   `message_thread_id` bigint(20) DEFAULT NULL COMMENT \'Unique identifier of a message thread to which the message belongs; for supergroups only\',
   `user_id` bigint NULL COMMENT \'Unique user identifier\',
   `sender_boost_count` bigint NULL COMMENT \'If the sender of the message boosted the chat, the number of boosts added by the user\',
@@ -263,7 +263,7 @@ CREATE TABLE IF NOT EXISTS `edited_message` (
 
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `callback_query` (
-  `id` bigint UNSIGNED COMMENT \'Unique identifier for this query\',
+  `id` bigint UNSIGNED AUTO_INCREMENT COMMENT \'Unique identifier for this query\',
   `user_id` bigint NULL COMMENT \'Unique user identifier\',
   `chat_id` bigint NULL COMMENT \'Unique chat identifier\',
   `message_id` bigint UNSIGNED COMMENT \'Unique message identifier\',
@@ -285,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `callback_query` (
 
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `shipping_query` (
-  `id` bigint UNSIGNED COMMENT \'Unique query identifier\',
+  `id` bigint UNSIGNED AUTO_INCREMENT COMMENT \'Unique query identifier\',
   `user_id` bigint COMMENT \'User who sent the query\',
   `invoice_payload` CHAR(255) NOT NULL DEFAULT \'\' COMMENT \'Bot specified invoice payload\',
   `shipping_address` CHAR(255) NOT NULL DEFAULT \'\' COMMENT \'User specified shipping address\',
@@ -300,7 +300,7 @@ CREATE TABLE IF NOT EXISTS `shipping_query` (
 
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `pre_checkout_query` (
-  `id` bigint UNSIGNED COMMENT \'Unique query identifier\',
+  `id` bigint UNSIGNED AUTO_INCREMENT COMMENT \'Unique query identifier\',
   `user_id` bigint COMMENT \'User who sent the query\',
   `currency` CHAR(3) COMMENT \'Three-letter ISO 4217 currency code\',
   `total_amount` bigint COMMENT \'Total price in the smallest units of the currency\',
@@ -318,7 +318,7 @@ CREATE TABLE IF NOT EXISTS `pre_checkout_query` (
 
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `poll` (
-  `id` bigint UNSIGNED COMMENT \'Unique poll identifier\',
+  `id` bigint UNSIGNED AUTO_INCREMENT COMMENT \'Unique poll identifier\',
   `question` text NOT NULL COMMENT \'Poll question\',
   `options` text NOT NULL COMMENT \'List of poll options\',
   `total_voter_count` int UNSIGNED COMMENT \'Total number of users that voted in the poll\',
@@ -415,7 +415,7 @@ CREATE TABLE IF NOT EXISTS `chat_boost_removed` (
 
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `telegram_update` (
-  `id` bigint UNSIGNED COMMENT \'Update\'\'s unique identifier\',
+  `id` bigint UNSIGNED AUTO_INCREMENT COMMENT \'Update\'\'s unique identifier\',
   `chat_id` bigint NULL DEFAULT NULL COMMENT \'Unique chat identifier\',
   `message_id` bigint UNSIGNED DEFAULT NULL COMMENT \'New incoming message of any kind - text, photo, sticker, etc.\',
   `edited_message_id` bigint UNSIGNED DEFAULT NULL COMMENT \'New version of a message that is known to the bot and was edited\',
@@ -474,7 +474,7 @@ CREATE TABLE IF NOT EXISTS `telegram_update` (
 
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `conversation` (
-  `id` bigint(20) unsigned AUTO_INCREMENT COMMENT \'Unique identifier for this entry\',
+  `id` bigint(20) UNSIGNED AUTO_INCREMENT COMMENT \'Unique identifier for this entry\',
   `user_id` bigint NULL DEFAULT NULL COMMENT \'Unique user identifier\',
   `chat_id` bigint NULL DEFAULT NULL COMMENT \'Unique user or chat identifier\',
   `status` ENUM(\'active\', \'cancelled\', \'stopped\') NOT NULL DEFAULT \'active\' COMMENT \'Conversation state\',

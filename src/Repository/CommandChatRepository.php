@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
-use App\Entity\Chat;
+use App\Entity\CommandChat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class ChatRepository extends ServiceEntityRepository
+class CommandChatRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Chat::class);
+        parent::__construct($registry, CommandChat::class);
     }
 
     public function getCount(): int
     {
-        $qb = $this->createQueryBuilder('c')
-            ->select('COUNT(c.id) as count')
+        $qb = $this->createQueryBuilder('cc')
+            ->select('COUNT(1) as count')
             ->setMaxResults(1);
 
         $result = $qb->getQuery()->getArrayResult();

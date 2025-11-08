@@ -21,8 +21,16 @@ CREATE TABLE IF NOT EXISTS `security_user` (
   `id` bigint,
   `email` CHAR(255) NOT NULL,
   `roles` JSON NOT NULL,
-  `password` VARCHAR(255) NOT NULL
+  `password` VARCHAR(255) NOT NULL,
+
+   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci
+        ');
+        $this->addSql('
+INSERT INTO `security_user`
+    (`id`, `email`, `roles`, `password`)
+VALUES
+(1, \'admin@example.com\', \'["ROLE_USER","ROLE_ADMIN"]\', \'$2y$13$ObokljlBT7Jfc4hJtvKtJOqimtC3beCKwNpdiW/nt3PJVVZImAXe2\')
         ');
     }
 
