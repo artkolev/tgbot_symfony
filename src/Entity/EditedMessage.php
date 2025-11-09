@@ -32,7 +32,7 @@ class EditedMessage
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false)]
     private ?string $user = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $edit_date = null;
 
     #[ORM\Column(type: Types::TEXT)]

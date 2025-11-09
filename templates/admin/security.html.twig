@@ -8,7 +8,7 @@
     </h2>
 
     <div class="container">
-        <div class="row">
+        <div class="row text-center align-items-center">
             <div class="col-sm-5">E-mail</div>
             <div class="col-sm-5">Roles</div>
             <div class="col-sm-1">Изменить</div>
@@ -22,14 +22,14 @@
                         {{ role }} <br/>
                     {% endfor %}
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-1 text-center">
                     <a href="{{ path('admin_security_edit', {'id': admin.id}) }}">
-                        {{ ux_icon('flowbite:pen-outline', {style: 'height: 2em'}) }}
+                        {{ ux_icon('flowbite:pen-outline', {style: 'height: 1em'}) }}
                     </a>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-1 text-center">
                     <a href="{{ path('admin_security_delete', {'id': admin.id}) }}">
-                        {{ ux_icon('mdi:delete-empty', {style: 'height: 2em'}) }}
+                        {{ ux_icon('mdi:delete-empty', {style: 'height: 1em'}) }}
                     </a>
                 </div>
             </div>

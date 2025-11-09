@@ -16,13 +16,13 @@ class Chat
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private string $id;
+    private ?string $id;
 
     #[ORM\Column(enumType: ChatTypeEnum::class)]
-    private ChatTypeEnum $type;
+    private ?ChatTypeEnum $type;
 
     #[ORM\Column(length: 255)]
-    private string $title = '';
+    private ?string $title = '';
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $username = null;
@@ -34,10 +34,10 @@ class Chat
     private ?string $last_name = null;
 
     #[ORM\Column]
-    private bool $is_forum = false;
+    private ?bool $is_forum = false;
 
     #[ORM\Column]
-    private bool $all_members_are_administrators = false;
+    private ?bool $all_members_are_administrators = false;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $created_at = null;

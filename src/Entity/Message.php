@@ -39,7 +39,7 @@ class Message
     #[ORM\Column(type: Types::BIGINT, nullable: true)]
     private ?string $sender_boost_count = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $date = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist'], inversedBy: 'forwaded_messages')]
@@ -59,7 +59,7 @@ class Message
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $forward_sender_name = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $forward_date = null;
 
     #[ORM\Column]
@@ -91,7 +91,7 @@ class Message
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $link_preview_options = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $edit_date = null;
 
     #[ORM\Column]

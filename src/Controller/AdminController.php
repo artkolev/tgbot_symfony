@@ -44,20 +44,20 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/chats', name: '_chats', methods: ['GET'])]
-    public function chats(Request $request, ChatRepository $chatRepository): Response
+    public function admin_chats(Request $request, ChatRepository $chatRepository): Response
     {
         $chats = $chatRepository->findAll();
         return $this->render('admin/chats.html.twig', ['chats' => $chats]);
     }
 
-    #[Route('/users/edit/{id}', name: '_chat_edit', methods: ['GET'])]
+    #[Route('/chats/edit/{id}', name: '_chat_edit', methods: ['GET'])]
     public function admin_chat_edit(Request $request, ChatRepository $chatRepository): Response
     {
         $chat = $chatRepository->find($request->attributes->get('id'));
         return $this->render('admin/user_edit.html.twig', ['chat' => $chat]);
     }
 
-    #[Route('/users/delete/{id}', name: '_chat_delete', methods: ['GET'])]
+    #[Route('/chats/delete/{id}', name: '_chat_delete', methods: ['GET'])]
     public function admin_chat_delete(Request $request, ChatRepository $chatRepository): Response
     {
         $chat = $chatRepository->find($request->attributes->get('id'));
@@ -65,7 +65,7 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/users', name: '_users', methods: ['GET'])]
-    public function users(Request $request, UserRepository $userRepository): Response
+    public function admin_users(Request $request, UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
         return $this->render('admin/users.html.twig', ['users' => $users,]);
@@ -86,7 +86,7 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/commands', name: '_commands', methods: ['GET'])]
-    public function commands(Request $request, CommandChatRepository $commandChatRepository): Response
+    public function admin_commands(Request $request, CommandChatRepository $commandChatRepository): Response
     {
         $commands = $commandChatRepository->findAll();
         return $this->render('admin/commands.html.twig', ['commands' => $commands]);
@@ -107,9 +107,9 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/messages', name: '_messages', methods: ['GET'])]
-    public function messages(Request $request, MessageRepository $messageRepository): Response
+    public function admin_messages(Request $request, MessageRepository $messageRepository): Response
     {
-        $messages = $messageRepository->findAllByPaginator($request->get('page', 1), 10);
+        $messages = $messageRepository->findAllByPaginator($request->get('page', 1), 50);
         return $this->render('admin/messages.html.twig', ['messages' => $messages]);
     }
 

@@ -24,7 +24,7 @@ class PollAnswer
     #[ORM\Column(type: Types::TEXT)]
     private ?string $option_ids = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $created_at = null;
 
     public function getPoll(): ?Poll

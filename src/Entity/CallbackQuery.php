@@ -44,7 +44,7 @@ class CallbackQuery
     #[ORM\Column(length: 255)]
     private ?string $game_short_name = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $created_at = null;
 
     public function getUser(): ?User

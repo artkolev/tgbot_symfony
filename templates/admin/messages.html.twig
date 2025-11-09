@@ -8,7 +8,7 @@
     </h2>
 
     <div class="container">
-        <div class="row">
+        <div class="row text-center align-items-center">
             <div class="col-sm-2">Чат</div>
             <div class="col-sm-2">Пользователь</div>
             <div class="col-sm-6">Текст</div>
@@ -16,10 +16,16 @@
         </div>
         {% for message in messages.messagesList %}
             <div class="row">
-                <div class="col-sm-2">{{ message.chat.title }}</div>
+                <div class="col-sm-2">
+                    {% if message.chat.title %}
+                        {{ message.chat.title }}
+                    {% else %}
+                        <div class="text-center">-</div>
+                    {% endif %}
+                </div>
                 <div class="col-sm-2">{{ message.user.username }}</div>
                 <div class="col-sm-6">{{ message.text }}</div>
-                <div class="col-sm-2">{{ chat.date | date("d.m.Y H:i") }}</div>
+                <div class="col-sm-2 text-center">{{ message.date | date("d.m.Y H:i") }}</div>
             </div>
         {% endfor %}
     </div>

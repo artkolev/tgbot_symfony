@@ -24,7 +24,7 @@ class ChatJoinRequest
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false)]
     private ?User $user = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTime $date = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -33,7 +33,7 @@ class ChatJoinRequest
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $invite_link = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $created_at = null;
 
     public function getId(): ?int

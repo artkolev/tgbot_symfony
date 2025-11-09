@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Configuration;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,13 +28,14 @@ class MessageRepository extends ServiceEntityRepository
 
     public function findAllByPaginator(int $page, int $pageSize): array
     {
+        $config = new Configuration();
+        $config->enableNativeLazyObjects(true);
+
         $query = $this
             ->createQueryBuilder('m')
-            ->orderBy('m.date', 'DESC')
-            ->getQuery();
+            ->orderBy('m.date', 'DESC');
 
         $paginator = new Paginator($query);
-
         $totalItems = count($paginator);
         $pagesCount = (int) ceil($totalItems / $pageSize);
 
@@ -41,7 +43,7 @@ class MessageRepository extends ServiceEntityRepository
             ->getQuery()
             ->setFirstResult($pageSize * ($page-1))
             ->setMaxResults($pageSize)
-            ->execute();
+            ->getResult();
 
         return [
             'messagesList' => $messagesList,

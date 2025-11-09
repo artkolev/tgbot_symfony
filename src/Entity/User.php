@@ -17,10 +17,10 @@ class User
     private ?string $id = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $is_bot = false;
+    private ?bool $is_bot = false;
 
     #[ORM\Column(type: Types::STRING, length: 255)]
-    private string $first_name = '';
+    private ?string $first_name = '';
 
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $last_name = null;
@@ -32,16 +32,16 @@ class User
     private ?string $language_code = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $is_premium = false;
+    private ?bool $is_premium = false;
 
     #[ORM\Column(type: Types::BOOLEAN)]
-    private bool $added_to_attachment_menu = false;
+    private ?bool $added_to_attachment_menu = false;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTime $created_at = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE,nullable: true)]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTime $updated_at = null;
 
     public function getId(): ?string
     {
@@ -132,24 +132,24 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTimeImmutable $created_at): static
+    public function setCreatedAt(?\DateTime $created_at): static
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?\DateTime
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updated_at): static
+    public function setUpdatedAt(?\DateTime $updated_at): static
     {
         $this->updated_at = $updated_at;
 
