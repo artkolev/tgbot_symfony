@@ -23,21 +23,21 @@
                     {% if chat.title %}
                         {{ chat.title|e }}
                     {% else %}
-                        -
+                        <div class="text-center">-</div>
                     {% endif %}
                 </div>
                 <div class="col-sm-2">
                     {% if chat.username %}
                         {{ chat.username|e }}
                     {% else %}
-                        -
+                        <div class="text-center">-</div>
                     {% endif %}
                 </div>
                 <div class="col-sm-2">
                     {% if chat.firstName or chat.lastName %}
                         {{ chat.firstName|e }} {{ chat.lastName|e }}
                     {% else %}
-                        -
+                        <div class="text-center">-</div>
                     {% endif %}
                 </div>
                 <div class="col-sm-1 text-center">
@@ -54,7 +54,7 @@
                         {{ ux_icon('healthicons:no-outline', {style: 'color: #580808; height: 1em'}) }}
                     {% endif %}
                 </div>
-                <div class="col-sm-2 text-center">{{ chat.createdAt| date("d.m.Y H:i") }}</div>
+                <div class="col-sm-2 text-center">{{ chat.createdAt | date("d.m.Y H:i", "Europe/Moscow") }}</div>
                 <div class="col-sm-1 text-center">
                     <a href="{{ path('admin_chat_edit', { 'id': chat.id }) }}">
                         {{ ux_icon('flowbite:pen-outline', { style: 'height: 1em' }) }}

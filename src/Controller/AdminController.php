@@ -51,16 +51,16 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/chats/edit/{id}', name: '_chat_edit', methods: ['GET'])]
-    public function admin_chat_edit(Request $request, ChatRepository $chatRepository): Response
+    public function admin_chat_edit($id, Request $request, ChatRepository $chatRepository): Response
     {
-        $chat = $chatRepository->find($request->attributes->get('id'));
+        $chat = $chatRepository->find($id);
         return $this->render('admin/user_edit.html.twig', ['chat' => $chat]);
     }
 
     #[Route('/chats/delete/{id}', name: '_chat_delete', methods: ['GET'])]
-    public function admin_chat_delete(Request $request, ChatRepository $chatRepository): Response
+    public function admin_chat_delete($id, Request $request, ChatRepository $chatRepository): Response
     {
-        $chat = $chatRepository->find($request->attributes->get('id'));
+        $chat = $chatRepository->find($id);
         return $this->render('admin/user_delete.html.twig', ['chat' => $chat]);
     }
 
@@ -72,16 +72,16 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/users/edit/{id}', name: '_user_edit', methods: ['GET'])]
-    public function admin_user_edit(Request $request, UserRepository $userRepository): Response
+    public function admin_user_edit($id, Request $request, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find($request->attributes->get('id'));
+        $user = $userRepository->find($id);
         return $this->render('admin/user_edit.html.twig', ['user' => $user]);
     }
 
     #[Route('/users/delete/{id}', name: '_user_delete', methods: ['GET'])]
-    public function admin_user_delete(Request $request, UserRepository $userRepository): Response
+    public function admin_user_delete($id, Request $request, UserRepository $userRepository): Response
     {
-        $user = $userRepository->find($request->attributes->get('id'));
+        $user = $userRepository->find($id);
         return $this->render('admin/user_delete.html.twig', ['user' => $user]);
     }
 
@@ -93,16 +93,16 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/commands/edit/{id}', name: '_command_edit', methods: ['GET'])]
-    public function admin_command_edit(Request $request, CommandChatRepository $commandChatRepository): Response
+    public function admin_command_edit($id, Request $request, CommandChatRepository $commandChatRepository): Response
     {
-        $command = $commandChatRepository->find($request->attributes->get('id'));
+        $command = $commandChatRepository->find($id);
         return $this->render('admin/command_edit.html.twig', ['command' => $command]);
     }
 
     #[Route('/commands/delete/{id}', name: '_command_delete', methods: ['GET'])]
-    public function admin_command_delete(Request $request, CommandChatRepository $commandChatRepository): Response
+    public function admin_command_delete($id, Request $request, CommandChatRepository $commandChatRepository): Response
     {
-        $command = $commandChatRepository->find($request->attributes->get('id'));
+        $command = $commandChatRepository->find($id);
         return $this->render('admin/command_delete.html.twig', ['command' => $command]);
     }
 
@@ -113,6 +113,13 @@ final class AdminController extends AbstractController
         return $this->render('admin/messages.html.twig', ['messages' => $messages]);
     }
 
+    #[Route('/messages/delete/{id}', name: '_messages_delete', methods: ['GET'])]
+    public function admin_messages_delete($command, $chat_id, Request $request, MessageRepository $messageRepository): Response
+    {
+        $user = $messageRepository->findBy(['command' => $command, 'chat' => $chat_id]);
+        return $this->render('admin/security_delete.html.twig', ['user' => $user]);
+    }
+
     #[Route('/security', name: '_security', methods: ['GET'])]
     public function admin_security(Request $request, SecurityUserRepository $securityUserRepository): Response
     {
@@ -121,16 +128,16 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/security/edit/{id}', name: '_security_edit', methods: ['GET'])]
-    public function admin_security_edit(Request $request, SecurityUserRepository $securityUserRepository): Response
+    public function admin_security_edit($id, Request $request, SecurityUserRepository $securityUserRepository): Response
     {
-        $user = $securityUserRepository->find($request->attributes->get('id'));
+        $user = $securityUserRepository->find($id);
         return $this->render('admin/security_edit.html.twig', ['user' => $user]);
     }
 
     #[Route('/security/delete/{id}', name: '_security_delete', methods: ['GET'])]
-    public function admin_security_delete(Request $request, SecurityUserRepository $securityUserRepository): Response
+    public function admin_security_delete($id, Request $request, SecurityUserRepository $securityUserRepository): Response
     {
-        $user = $securityUserRepository->find($request->attributes->get('id'));
+        $user = $securityUserRepository->find($id);
         return $this->render('admin/security_delete.html.twig', ['user' => $user]);
     }
 }

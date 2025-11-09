@@ -24,8 +24,18 @@
                     {% endif %}
                 </div>
                 <div class="col-sm-2">{{ message.user.username }}</div>
-                <div class="col-sm-6">{{ message.text }}</div>
-                <div class="col-sm-2 text-center">{{ message.date | date("d.m.Y H:i") }}</div>
+                <div class="col-sm-6">
+                    {% if message.text %}
+                        {{ message.text }}
+                    {% elseif message.caption %}
+                        {{ message.caption }}
+                    {% elseif message.photo %}
+                        <div class="text-center"><<< изображения >>></div>
+                    {% else %}
+                        <div class="text-center">-</div>
+                    {% endif %}
+                </div>
+                <div class="col-sm-2 text-center">{{ message.date | date("d.m.Y H:i", "Europe/Moscow") }}</div>
             </div>
         {% endfor %}
     </div>

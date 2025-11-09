@@ -33,6 +33,7 @@ class MessageRepository extends ServiceEntityRepository
 
         $query = $this
             ->createQueryBuilder('m')
+            ->andWhere('m.new_chat_members IS NULL')
             ->orderBy('m.date', 'DESC');
 
         $paginator = new Paginator($query);

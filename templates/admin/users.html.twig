@@ -28,7 +28,7 @@
                         {{ ux_icon('healthicons:no-outline', {style: 'color: #580808; height: 1em'}) }}
                     {% endif %}
                 </div>
-                <div class="col-sm-2 text-center">{{ user.createdAt| date("d.m.Y H:i") }}</div>
+                <div class="col-sm-2 text-center">{{ user.createdAt | date("d.m.Y H:i", "Europe/Moscow") }}</div>
                 <div class="col-sm-1 text-center">
                     <a href="{{ path('admin_user_edit', { 'id': user.id }) }}">
                         {{ ux_icon('flowbite:pen-outline', { style: 'height: 1em' }) }}
