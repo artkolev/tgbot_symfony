@@ -17,12 +17,10 @@ class CommandChatRepository extends ServiceEntityRepository
 
     public function getCount(): int
     {
-        $qb = $this->createQueryBuilder('cc')
+        return $this
+            ->createQueryBuilder('cc')
             ->select('COUNT(1) as count')
-            ->setMaxResults(1);
-
-        $result = $qb->getQuery()->getArrayResult();
-
-        return $result[0]['count'] ?? 0;
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

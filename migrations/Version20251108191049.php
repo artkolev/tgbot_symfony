@@ -18,12 +18,11 @@ final class Version20251108191049 extends AbstractMigration
     {
         $this->addSql('
 CREATE TABLE IF NOT EXISTS `command_chat` (
-  `user_id` bigint COMMENT \'Unique user identifier\',
+  `command` VARCHAR(255),
   `chat_id` bigint COMMENT \'Unique user or chat identifier\',
 
-  PRIMARY KEY (`user_id`, `chat_id`),
+  PRIMARY KEY (`command`, `chat_id`),
 
-  FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`chat_id`) REFERENCES `chat` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci
         ');

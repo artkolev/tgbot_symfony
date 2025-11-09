@@ -17,12 +17,10 @@ class UserRepository extends ServiceEntityRepository
 
     public function getCount(): int
     {
-        $qb = $this->createQueryBuilder('u')
-            ->select('COUNT(u.id) as count')
-            ->setMaxResults(1);
-
-        $result = $qb->getQuery()->getArrayResult();
-
-        return $result[0]['count'] ?? 0;
+        return $this
+            ->createQueryBuilder('u')
+            ->select('COUNT(1) as count')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

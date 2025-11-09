@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Администрирование бота{% endblock %}
+
+{% block body %}
+    <h2 class="mb-5">
+        Активность в реальном времени
+    </h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">Чат</div>
+            <div class="col-sm-2">Пользователь</div>
+            <div class="col-sm-6">Текст</div>
+            <div class="col-sm-2">Создано</div>
+        </div>
+        {% for message in messages.messagesList %}
+            <div class="row">
+                <div class="col-sm-2">{{ message.chat.title }}</div>
+                <div class="col-sm-2">{{ message.user.username }}</div>
+                <div class="col-sm-6">{{ message.text }}</div>
+                <div class="col-sm-2">{{ chat.date | date("d.m.Y H:i") }}</div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -27,7 +27,7 @@ class Message
     private ?Chat $chat = null;
 
     #[ORM\Column(type: Types::BIGINT)]
-    private ?string $sender_chat = null;
+    private ?string $sender_chat_id = null;
 
     #[ORM\Column(type: Types::BIGINT, nullable: true)]
     private ?string $message_thread_id = null;
@@ -275,14 +275,14 @@ class Message
         return $this;
     }
 
-    public function getSenderChat(): ?string
+    public function getSenderChatId(): ?string
     {
-        return $this->sender_chat;
+        return $this->sender_chat_id;
     }
 
-    public function setSenderChat(string $sender_chat): static
+    public function setSenderChatId(string $sender_chat_id): static
     {
-        $this->sender_chat = $sender_chat;
+        $this->sender_chat_id = $sender_chat_id;
 
         return $this;
     }

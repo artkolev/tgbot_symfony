@@ -4,6 +4,68 @@
 
 {% block body %}
     <h2 class="mb-5">
-        Управление коммандами бота
+        Управление командами бота
     </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">Наименование</div>
+            <div class="col-sm-2">Имя пользователя</div>
+            <div class="col-sm-2">Имя и фамилия</div>
+            <div class="col-sm-1">Форум</div>
+            <div class="col-sm-1">Все админы</div>
+            <div class="col-sm-2">Создан</div>
+            <div class="col-sm-1">Изменить</div>
+            <div class="col-sm-1">Удалить</div>
+        </div>
+        {% for command in commands %}
+            <div class="row">
+                <div class="col-sm-3">
+                    {% if command.title %}
+                        {{ command.title|e }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+                <div class="col-sm-3">
+                    {% if command.commandname %}
+                        {{ command.commandname|e }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+                <div class="col-sm-3">
+                    {% if command.firstName or command.lastName %}
+                        {{ command.firstName|e }} {{ command.lastName|e }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </div>
+                <div class="col-sm-1">
+                    {% if command.isForum %}
+                        {{ ux_icon('healthicons:yes-outline', {style: 'color: #126415; height: 1em'}) }}
+                    {% else %}
+                        {{ ux_icon('healthicons:no-outline', {style: 'color: #580808; height: 1em'}) }}
+                    {% endif %}
+                </div>
+                <div class="col-sm-1">
+                    {% if command.allMembersAreAdministrators %}
+                        {{ ux_icon('healthicons:yes-outline', {style: 'color: #126415; height: 1em'}) }}
+                    {% else %}
+                        {{ ux_icon('healthicons:no-outline', {style: 'color: #580808; height: 1em'}) }}
+                    {% endif %}
+                </div>
+                <div class="col-sm-2">{{ command.createdAt| date("d.m.Y H:i") }}</div>
+                <div class="col-sm-1">
+                    <a href="{{ path('admin_command_edit', { 'id': command.id }) }}">
+                        {{ ux_icon('flowbite:pen-outline', { style: 'height: 1em' }) }}
+                    </a>
+                </div>
+                <div class="col-sm-1">
+                    <a href="{{ path('admin_command_delete', { 'id': command.id }) }}">
+                        {{ ux_icon('mdi:delete-empty', { style: 'height: 1em' }) }}
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

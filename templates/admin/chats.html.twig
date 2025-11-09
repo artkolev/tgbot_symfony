@@ -6,4 +6,22 @@
     <h2 class="mb-5">
         Чаты бота
     </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">Наименование</div>
+            <div class="col-sm-2">Имя пользователя</div>
+            <div class="col-sm-2">Текст</div>
+            <div class="col-sm-1">Форум</div>
+            <div class="col-sm-1">Все админы</div>
+            <div class="col-sm-2">Создан</div>
+            <div class="col-sm-1">Изменить</div>
+            <div class="col-sm-1">Удалить</div>
+        </div>
+        {% for chat in chats %}
+            <div class="row">
+
+                <div class="col-sm-2">{{ chat.date| date("d.m.Y H:i") }}</div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

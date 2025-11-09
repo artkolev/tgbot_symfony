@@ -6,4 +6,40 @@
     <h2 class="mb-5">
         Пользователи в боте
     </h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">Ник</div>
+            <div class="col-sm-3">Имя и фамилия</div>
+            <div class="col-sm-1">Язык</div>
+            <div class="col-sm-1">Премиум</div>
+            <div class="col-sm-2">Создан</div>
+            <div class="col-sm-1">Изменить</div>
+            <div class="col-sm-1">Удалить</div>
+        </div>
+        {% for user in users %}
+            <div class="row">
+                <div class="col-sm-3">{{ user.username|e }}</div>
+                <div class="col-sm-3">{{ user.firstName|e }} {{ user.lastName|e }}</div>
+                <div class="col-sm-1">{{ user.languageCode|e }}</div>
+                <div class="col-sm-1">
+                    {% if user.isPremium %}
+                        {{ ux_icon('healthicons:yes-outline', {style: 'color: #126415; height: 1em'}) }}
+                    {% else %}
+                        {{ ux_icon('healthicons:no-outline', {style: 'color: #580808; height: 1em'}) }}
+                    {% endif %}
+                </div>
+                <div class="col-sm-2">{{ user.createdAt| date("d.m.Y H:i") }}</div>
+                <div class="col-sm-1">
+                    <a href="{{ path('admin_user_edit', { 'id': user.id }) }}">
+                        {{ ux_icon('flowbite:pen-outline', { style: 'height: 1em' }) }}
+                    </a>
+                </div>
+                <div class="col-sm-1">
+                    <a href="{{ path('admin_user_delete', { 'id': user.id }) }}">
+                        {{ ux_icon('mdi:delete-empty', { style: 'height: 1em' }) }}
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

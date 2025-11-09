@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Администрирование бота{% endblock %}
+
+{% block body %}
+    <h2 class="mb-5">
+        Администраторы панели
+    </h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">E-mail</div>
+            <div class="col-sm-5">Roles</div>
+            <div class="col-sm-1">Изменить</div>
+            <div class="col-sm-1">Удалить</div>
+        </div>
+        {% for admin in admins %}
+            <div class="row">
+                <div class="col-sm-5">{{ admin.email|e }}</div>
+                <div class="col-sm-5">
+                    {% for role in admin.roles %}
+                        {{ role }} <br/>
+                    {% endfor %}
+                </div>
+                <div class="col-sm-1">
+                    <a href="{{ path('admin_security_edit', {'id': admin.id}) }}">
+                        {{ ux_icon('flowbite:pen-outline', {style: 'height: 2em'}) }}
+                    </a>
+                </div>
+                <div class="col-sm-1">
+                    <a href="{{ path('admin_security_delete', {'id': admin.id}) }}">
+                        {{ ux_icon('mdi:delete-empty', {style: 'height: 2em'}) }}
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
