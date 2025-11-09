@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 )]
 class WebhookSetCommand extends Command
 {
-    public function __construct(private readonly UrlGeneratorInterface $urlGenerator,)
+    public function __construct(private readonly UrlGeneratorInterface $urlGenerator)
     {
         parent::__construct();
     }
