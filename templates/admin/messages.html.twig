@@ -29,8 +29,14 @@
                         {{ message.text }}
                     {% elseif message.caption %}
                         {{ message.caption }}
+                    {% elseif message.sticker %}
+                        <div class="text-center"><<< стикер >>></div>
+                    {% elseif message.pinnedMessage %}
+                        <div class="text-center"><<< закреп сообщения >>></div>
                     {% elseif message.photo %}
                         <div class="text-center"><<< изображения >>></div>
+                    {% elseif message.video %}
+                        <div class="text-center"><<< видео >>></div>
                     {% else %}
                         <div class="text-center">-</div>
                     {% endif %}
