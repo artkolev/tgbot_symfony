@@ -115,7 +115,11 @@ final class AdminController extends AbstractController
         MessageRepository $messageRepository,
         ChatRepository $chatRepository
     ): Response{
-        $currentChat = $chatRepository->find($request->get('chatId'));
+        $currentChat = null;
+        $chatId = $request->get('chatId', null);
+        if ($chatId) {
+            $currentChat = $chatRepository->find($request->get('chatId'));
+        }
         $messages = $messageRepository->findAllByPaginator(
             $request->get('page', 1),
             50,

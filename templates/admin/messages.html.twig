@@ -18,7 +18,7 @@
                             {% for chat in chats %}
                                 <option
                                     value="{{ chat.id }}"
-                                    {% if currentChat.id == chat.id %}
+                                    {% if currentChat and currentChat.id == chat.id %}
                                         selected
                                     {% endif %}
                                 >
@@ -70,5 +70,9 @@
                 <div class="col-sm-2 text-center">{{ message.date | date("d.m.Y H:i", "Europe/Moscow") }}</div>
             </div>
         {% endfor %}
+
+        <div class="row mt-2 mb-4">
+            Страницы:
+        </div>
     </div>
 {% endblock %}
