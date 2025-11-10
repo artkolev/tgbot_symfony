@@ -54,14 +54,14 @@ final class AdminController extends AbstractController
     public function admin_chat_edit($id, Request $request, ChatRepository $chatRepository): Response
     {
         $chat = $chatRepository->find($id);
-        return $this->render('admin/user_edit.html.twig', ['chat' => $chat]);
+        return $this->render('admin/chat_edit.html.twig', ['chat' => $chat]);
     }
 
     #[Route('/chats/delete/{id}', name: '_chat_delete', methods: ['GET'])]
     public function admin_chat_delete($id, Request $request, ChatRepository $chatRepository): Response
     {
         $chat = $chatRepository->find($id);
-        return $this->render('admin/user_delete.html.twig', ['chat' => $chat]);
+        return $this->render('admin/chat_delete.html.twig', ['chat' => $chat]);
     }
 
     #[Route('/users', name: '_users', methods: ['GET'])]
@@ -75,6 +75,7 @@ final class AdminController extends AbstractController
     public function admin_user_edit($id, Request $request, UserRepository $userRepository): Response
     {
         $user = $userRepository->find($id);
+
         return $this->render('admin/user_edit.html.twig', ['user' => $user]);
     }
 
@@ -82,6 +83,7 @@ final class AdminController extends AbstractController
     public function admin_user_delete($id, Request $request, UserRepository $userRepository): Response
     {
         $user = $userRepository->find($id);
+
         return $this->render('admin/user_delete.html.twig', ['user' => $user]);
     }
 
