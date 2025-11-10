@@ -7,6 +7,32 @@
         Активность в реальном времени
     </h2>
 
+    <div class="conteiner">
+        <div class="row text-end">
+            <div class="col-sm-12">
+                <form action="{{ path('admin_messages') }}" method="get">
+                    <label>
+                        Чат:
+                        <select name="chatId" class="form-select w-50 d-inline-block">
+                            <option value="">Все</option>
+                            {% for chat in chats %}
+                                <option
+                                    value="{{ chat.id }}"
+                                    {% if currentChat.id == chat.id %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ chat.title }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </label>
+                    <button type="submit" class="btn btn-light">Обновить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row text-center align-items-center">
             <div class="col-sm-2">Чат</div>

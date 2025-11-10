@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Enum\ChatTypeEnum;
 use App\Enum\SecurityUserRoleEnum;
 use App\Repository\ChatRepository;
 use App\Repository\CommandChatRepository;
@@ -109,10 +110,23 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/messages', name: '_messages', methods: ['GET'])]
-    public function admin_messages(Request $request, MessageRepository $messageRepository): Response
-    {
-        $messages = $messageRepository->findAllByPaginator($request->get('page', 1), 50);
-        return $this->render('admin/messages.html.twig', ['messages' => $messages]);
+    public function admin_messages(
+        Request $request,
+        MessageRepository $messageRepository,
+        ChatRepository $chatRepository
+    ): Response{
+        $currentChat = $chatRepository->find($request->get('chatId'));
+        $messages = $messageRepository->findAllByPaginator(
+            $request->get('page', 1),
+            50,
+            $currentChat
+        );
+        $chats = $chatRepository->findAll();
+        return $this->render('admin/messages.html.twig', [
+            'messages' => $messages,
+            'chats' => $chats,
+            'currentChat' => $currentChat
+        ]);
     }
 
     #[Route('/messages/delete/{id}', name: '_messages_delete', methods: ['GET'])]

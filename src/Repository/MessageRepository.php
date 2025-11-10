@@ -26,12 +26,16 @@ class MessageRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 
-    public function findAllByPaginator(int $page, int $pageSize): array
+    public function findAllByPaginator(int $page, int $pageSize, ?Chat $chat = null): array
     {
         $query = $this
             ->createQueryBuilder('m')
             ->andWhere('m.new_chat_members IS NULL')
             ->orderBy('m.date', 'DESC');
+
+        if ($chat) {
+            $query->andWhere('m.chat = :chat')->setParameter('chat', $chat);
+        }
 
         $paginator = new Paginator($query);
         $totalItems = count($paginator);
