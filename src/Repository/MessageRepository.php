@@ -58,7 +58,8 @@ class MessageRepository extends ServiceEntityRepository
     {
         $result = $this
             ->createQueryBuilder('m')
-            ->select('COUNT(m.id) as count, m.user')
+            ->select('COALESCE(CONCAT(`u`.`first_name`, \' \', `u`.`last_name`), `u`.`username`) as user, COUNT(m.id) as count')
+            ->innerJoin('m.user', 'u')
             ->andWhere('m.chat_id = :chat')
             ->setParameter('chat', $chat)
             ->andWhere('m.date >= :start')
