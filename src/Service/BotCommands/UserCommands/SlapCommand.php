@@ -66,7 +66,6 @@ class SlapCommand extends UserBaseCommandService
         $commandSlapPhasesRepository = $this->em->getRepository(CommandSlapPhases::class);
 
         $phrase = $commandSlapPhasesRepository->getRandomActiveInTable()[0];
-        $this->logger->debug('djpdhfn ahfps ' . $phrase['phase']);
         $this->logger->info('Выбрана фраза №' . $phrase['id']);
         $data['text'] = sprintf($phrase['phase'], $senderLnk, $targetLnk);
 
