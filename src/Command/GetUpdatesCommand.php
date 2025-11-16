@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 #[AsCommand(
     name: 'app:get-updates',
-    description: 'Add a short description for your command',
+    description: 'Get updates from telegram',
 )]
 class GetUpdatesCommand extends Command
 {

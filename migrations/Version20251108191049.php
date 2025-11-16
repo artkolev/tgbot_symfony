@@ -9,6 +9,8 @@ use Doctrine\Migrations\AbstractMigration;
 
 final class Version20251108191049 extends AbstractMigration
 {
+
+    const TABLENAME = 'command_chat';
     public function getDescription(): string
     {
         return 'add command_chat table';
@@ -17,7 +19,7 @@ final class Version20251108191049 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $this->addSql('
-CREATE TABLE IF NOT EXISTS `command_chat` (
+CREATE TABLE IF NOT EXISTS `' . self::TABLENAME . '` (
   `command` VARCHAR(255),
   `chat_id` bigint COMMENT \'Unique user or chat identifier\',
 
@@ -30,6 +32,6 @@ CREATE TABLE IF NOT EXISTS `command_chat` (
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE `command_chat`');
+        $this->addSql('DROP TABLE `' . self::TABLENAME . '`');
     }
 }

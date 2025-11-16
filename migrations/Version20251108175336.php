@@ -9,6 +9,8 @@ use Doctrine\Migrations\AbstractMigration;
 
 final class Version20251108175336 extends AbstractMigration
 {
+    const TABLENAME = 'reset_password_request';
+
     public function getDescription(): string
     {
         return 'Add reset password table';
@@ -17,7 +19,7 @@ final class Version20251108175336 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $this->addSql('
-CREATE TABLE IF NOT EXISTS `reset_password_request` (
+CREATE TABLE IF NOT EXISTS `' . self::TABLENAME . '` (
   `id` bigint UNSIGNED AUTO_INCREMENT,
   `user_id` bigint NULL DEFAULT NULL COMMENT \'Unique user identifier\',
   `selector` VARCHAR(20) NOT NULL,
@@ -34,6 +36,6 @@ CREATE TABLE IF NOT EXISTS `reset_password_request` (
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE `reset_password_request`');
+        $this->addSql('DROP TABLE `' . self::TABLENAME . '`');
     }
 }

@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 #[AsCommand(
     name: 'app:webhook-delete',
-    description: 'Set webhook telegram',
+    description: 'Delete webhook telegram',
 )]
 class WebhookDeleteCommand extends Command
 {
