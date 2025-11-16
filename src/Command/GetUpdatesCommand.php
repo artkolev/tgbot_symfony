@@ -2,14 +2,13 @@
 
 namespace App\Command;
 
+use App\Service\TelegramService;
 use Doctrine\ORM\EntityManagerInterface;
 use Longman\TelegramBot\Exception\TelegramException;
-use Longman\TelegramBot\Telegram;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -22,7 +21,8 @@ class GetUpdatesCommand extends Command
 {
     public function __construct(
         private readonly KernelInterface $kernel,
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger
     ) {
         parent::__construct();
     }
@@ -33,20 +33,10 @@ class GetUpdatesCommand extends Command
 
         $io->note('Получение данных из Telegram...');
 
-        $bot_api_key  = $_ENV['BOT_API_KEY'];
-        $bot_username = $_ENV['BOT_USERNAME'];
-
         try {
-            $telegram = new Telegram($bot_api_key, $bot_username);
-            if ($_ENV['ADMIN_USER']) {
-                $telegram->enableAdmin((int) $_ENV['ADMIN_USER']);
-            }
-            $telegram->enableLimiter();
-            $telegram->setDownloadPath($this->kernel->getProjectDir() . '/public/download');
-            $telegram->setUploadPath($this->kernel->getProjectDir() . '/public/upload');
-            $telegram->addCommandsPath($this->kernel->getProjectDir() . 'src/Service/BotCommands');
-            /** @noinspection PhpParamsInspection */
-            $telegram->enableExternalMySql($this->entityManager->getConnection()->getNativeConnection());
+            $telegram = (new TelegramService($this->kernel, $this->entityManager, $this->logger))
+                ->createTelegramService();
+
             $result = $telegram->handleGetUpdates();
             if (!$result->isOk()) {
                 $io->error($result->getDescription());

@@ -2,14 +2,16 @@
 
 namespace App\Command;
 
+use App\Service\TelegramService;
+use Doctrine\ORM\EntityManagerInterface;
 use Longman\TelegramBot\Exception\TelegramException;
-use Longman\TelegramBot\Telegram;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 #[AsCommand(
     name: 'app:webhook-delete',
@@ -17,8 +19,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 )]
 class WebhookDeleteCommand extends Command
 {
-    public function __construct()
-    {
+    public function __construct(
+        private readonly KernelInterface $kernel,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly LoggerInterface $logger
+    ) {
         parent::__construct();
     }
 
@@ -28,11 +33,9 @@ class WebhookDeleteCommand extends Command
 
         $io->note('Удаление вебхука в Telegram...');
 
-        $bot_api_key  = $_ENV['BOT_API_KEY'];
-        $bot_username = $_ENV['BOT_USERNAME'];
-
         try {
-            $telegram = new Telegram($bot_api_key, $bot_username);
+            $telegram = (new TelegramService($this->kernel, $this->entityManager, $this->logger))
+                ->createTelegramService();
             $result = $telegram->deleteWebhook();
             if ($result->isOk()) {
                 $io->note($result->getDescription());
