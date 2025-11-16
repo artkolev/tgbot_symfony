@@ -14,4 +14,16 @@ class CommandSlapPhasesRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, CommandSlapPhases::class);
     }
+
+    public function getRandomActiveInTable()
+    {
+        return $this
+            ->createQueryBuilder('csp')
+            ->select()
+            ->where('csp.active = 1')
+            ->orderBy('RAND()')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getArrayResult();
+    }
 }

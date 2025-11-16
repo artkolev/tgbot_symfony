@@ -65,13 +65,11 @@ class SlapCommand extends UserBaseCommandService
         /** @var CommandSlapPhasesRepository $commandSlapPhasesRepository */
         $commandSlapPhasesRepository = $this->em->getRepository(CommandSlapPhases::class);
 
-        $phraseKey = array_rand($commandSlapPhasesRepository->findBy(['active' => true]));
-        $this->logger->info('Выбрана фраза №' . $phraseKey);
+        $phrase = $commandSlapPhasesRepository->getRandomActiveInTable()[0];
+        $this->logger->debug('djpdhfn ahfps ' . $phrase['phase']);
+        $this->logger->info('Выбрана фраза №' . $phrase['id']);
+        $data['text'] = sprintf($phrase['phase'], $senderLnk, $targetLnk);
 
-        /** @var CommandSlapPhases $phrase */
-        $phrase = $commandSlapPhasesRepository->find($phraseKey);
-
-        $data['text'] = sprintf($phrase->getPhase(), $senderLnk, $targetLnk);
         return $this->sendAnswerRequest($data);
     }
 }
