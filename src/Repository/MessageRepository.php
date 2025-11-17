@@ -56,21 +56,20 @@ class MessageRepository extends ServiceEntityRepository
 
     public function getPopularUsersByChat(Chat $chat, int $limit = 5): array
     {
-        $result = $this
+        return $this
             ->createQueryBuilder('m')
-            ->select('COALESCE(CONCAT(`u`.`first_name`, \' \', `u`.`last_name`), `u`.`username`) as user, COUNT(m.id) as count')
+            ->select('COUNT(m.id) as count, u.first_name, u.last_name, u.username')
             ->innerJoin('m.user', 'u')
-            ->andWhere('m.chat_id = :chat')
+            ->andWhere('m.chat = :chat')
             ->setParameter('chat', $chat)
             ->andWhere('m.date >= :start')
-            ->setParameter('start', (new \DateTime())->format('Y-m-d 00:00:00'))
+            ->setParameter('start', new \DateTime()->format('Y-m-d 00:00:00'))
             ->andWhere('m.date <= :end')
-            ->setParameter('end', (new \DateTime())->format('Y-m-d 23:59:59'))
+            ->setParameter('end', new \DateTime()->format('Y-m-d 23:59:59'))
+            ->groupBy('m.user')
             ->orderBy('count', 'DESC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getArrayResult();
-
-        return $result;
     }
 }

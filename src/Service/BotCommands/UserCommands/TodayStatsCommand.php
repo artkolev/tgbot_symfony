@@ -39,7 +39,7 @@ class TodayStatsCommand extends UserBaseCommandService
 
         $data = [
             'chat_id' => $this->getMessage()->getChat()->getId(),
-            'parse_mode' => 'Markdown',
+            'parse_mode' => 'HTML',
         ];
 
         /** @var ChatRepository $chatRepository */
@@ -51,8 +51,21 @@ class TodayStatsCommand extends UserBaseCommandService
         $messageRepository = $this->em->getRepository(Message::class);
         $stats = $messageRepository->getPopularUsersByChat($chat);
 
-        $data['text'] = 'Пять самых популярных чатландев за сегодняшний день: \n';
+        $data['text'] = "Пять самых популярных чатландев за сегодняшний день: \n\n";
         $this->logger->debug('стата: ' . json_encode($stats));
+
+        $data['text'] .= "Имя - количество сообщений \n";
+
+        foreach ($stats as $stat) {
+            if (trim($stat['first_name']) !== '' || trim($stat['last_name']) !== '') {
+                $data['text'] .= $stat['first_name'] . ' ' . $stat['last_name'];
+            } else {
+                $data['text'] .= $stat['username'];
+            }
+            $data['text'] .= '  -  ' . $stat['count'] . "\n";
+        }
+        $data['text'] .= "\n Приятного общения!";
+
         return $this->sendAnswerRequest($data);
     }
 }

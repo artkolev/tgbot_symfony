@@ -28,14 +28,16 @@ class SlapCommand extends UserBaseCommandService
     protected $usage = '/slap <@user>';
 
     /**
-     * Только публичная команда
-     *
+     * @var bool
+     */
+    protected $enabled = true;
+
+    /**
      * @var bool
      */
     protected $publicOnly = true;
 
     /**
-     * Ответить отправителю команды
      *
      * @var bool
      */
