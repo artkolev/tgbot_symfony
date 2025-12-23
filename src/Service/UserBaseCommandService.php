@@ -29,7 +29,7 @@ abstract class UserBaseCommandService extends UserCommand
      */
     public function __construct(
         Telegram $telegram,
-        Update $update = null,
+        ?Update $update = null,
         protected readonly LoggerInterface $logger,
         protected readonly EntityManager $em,
     )
@@ -252,10 +252,11 @@ abstract class UserBaseCommandService extends UserCommand
         $chatRepository = $this->em->getRepository(Chat::class);
 
         /** @noinspection PhpParamsInspection */
-        return $userChatRepository->issetUserChat(
-            $userRepository->find($message->getFrom()->getId()),
-            $chatRepository->find($message->getFrom()->getId())
-        );
+        return $message->getFrom()->getId() &&
+            $userChatRepository->issetUserChat(
+                $userRepository->find($message->getFrom()->getId()),
+                $chatRepository->find($message->getFrom()->getId())
+            );
     }
 
     /**
