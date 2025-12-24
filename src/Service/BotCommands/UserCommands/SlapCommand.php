@@ -11,7 +11,6 @@ use Longman\TelegramBot\Entities\ServerResponse;
 
 class SlapCommand extends UserBaseCommandService
 {
-
     /**
      * @var string
      */
@@ -20,7 +19,7 @@ class SlapCommand extends UserBaseCommandService
     /**
      * @var string
      */
-    protected $description = 'Пощечина кому-то по имени пользователя';
+    protected $description = 'Пинок кому-то по имени пользователя';
 
     /**
      * @var string
@@ -67,10 +66,11 @@ class SlapCommand extends UserBaseCommandService
         /** @var CommandSlapPhasesRepository $commandSlapPhasesRepository */
         $commandSlapPhasesRepository = $this->em->getRepository(CommandSlapPhases::class);
 
+        /** @var CommandSlapPhases[] $phases */
         $phases = $commandSlapPhasesRepository->findBy(['active' => 1]);
         $phraseKey = array_rand($phases);
         $this->logger->info('Выбрана фраза №' . $phraseKey);
-        $data['text'] = sprintf($phases[$phraseKey], $senderLnk, $targetLnk);
+        $data['text'] = sprintf($phases[$phraseKey]->getPhase(), $senderLnk, $targetLnk);
 
         return $this->sendAnswerRequest($data);
     }
