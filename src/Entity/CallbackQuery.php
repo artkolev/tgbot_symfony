@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\CallbackQueryRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -45,7 +46,7 @@ class CallbackQuery
     private ?string $game_short_name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $created_at = null;
+    private ?DateTime $created_at = null;
 
     public function getUser(): ?User
     {
@@ -131,12 +132,12 @@ class CallbackQuery
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTime $created_at): static
+    public function setCreatedAt(?DateTime $created_at): static
     {
         $this->created_at = $created_at;
 

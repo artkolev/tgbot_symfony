@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ChatMemberUpdatedRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +15,11 @@ class ChatMemberUpdated
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?string $id = null;
+    private ?string $id = null {
+        get {
+            return $this->id;
+        }
+    }
 
     #[ORM\ManyToOne(targetEntity: Chat::class, cascade: ['persist'], inversedBy: 'ChatMembersUpdated')]
     #[ORM\JoinColumn(name: 'chat_id', referencedColumnName: 'id', nullable: false)]
@@ -25,7 +30,7 @@ class ChatMemberUpdated
     private ?User $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTime $date = null;
+    private ?DateTime $date = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $old_chat_member = null;
@@ -37,12 +42,7 @@ class ChatMemberUpdated
     private ?string $invite_link = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $created_at = null;
-
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
+    private ?DateTime $created_at = null;
 
     public function getChat(): ?Chat
     {
@@ -68,12 +68,12 @@ class ChatMemberUpdated
         return $this;
     }
 
-    public function getDate(): ?\DateTime
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }
 
-    public function setDate(\DateTime $date): static
+    public function setDate(DateTime $date): static
     {
         $this->date = $date;
 
@@ -116,12 +116,12 @@ class ChatMemberUpdated
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTime $created_at): static
+    public function setCreatedAt(?DateTime $created_at): static
     {
         $this->created_at = $created_at;
 

@@ -31,16 +31,9 @@ class SlapCommand extends UserBaseCommandService
      */
     protected $enabled = true;
 
-    /**
-     * @var bool
-     */
-    protected $publicOnly = true;
+    protected bool $publicOnly = true;
 
-    /**
-     *
-     * @var bool
-     */
-    protected $replyToSender = true;
+    protected bool $replyToSender = true;
 
     public function execute(): ServerResponse
     {

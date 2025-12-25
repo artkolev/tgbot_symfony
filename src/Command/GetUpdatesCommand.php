@@ -34,7 +34,7 @@ class GetUpdatesCommand extends Command
         $io->note('Получение данных из Telegram...');
 
         try {
-            $telegram = (new TelegramService($this->kernel, $this->entityManager, $this->logger))
+            $telegram = new TelegramService($this->kernel, $this->entityManager, $this->logger)
                 ->createTelegramService();
 
             $result = $telegram->handleGetUpdates();

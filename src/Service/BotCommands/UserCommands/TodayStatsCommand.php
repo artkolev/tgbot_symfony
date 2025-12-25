@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Service\BotCommands\UserCommands;
@@ -27,12 +28,7 @@ class TodayStatsCommand extends UserBaseCommandService
      */
     protected $usage = '/today_stats';
 
-    /**
-     * Только публичная команда
-     *
-     * @var bool
-     */
-    protected $publicOnly = true;
+    protected bool $publicOnly = true;
     public function execute(): ServerResponse
     {
         $this->logger->info('Новый запрос дневной статистики');

@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class WebhookController extends AbstractController
 {
-
     #[Route('/webhook', name: 'app_webhook')]
     public function index(): Response
     {
@@ -26,7 +25,7 @@ final class WebhookController extends AbstractController
         LoggerInterface $logger,
         EntityManagerInterface $entityManager
     ): Response {
-        if ($token !==$_ENV['BOT_API_KEY']) {
+        if ($token !== $_ENV['BOT_API_KEY']) {
             return new Response('Invalid token', Response::HTTP_FORBIDDEN);
         }
 

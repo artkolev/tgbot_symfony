@@ -8,7 +8,6 @@ use App\Entity\InlineQuery;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-
 class InlineQueryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)

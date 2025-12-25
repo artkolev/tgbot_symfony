@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\EditedMessageRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,7 +34,7 @@ class EditedMessage
     private ?string $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $edit_date = null;
+    private ?DateTime $edit_date = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
@@ -80,12 +81,12 @@ class EditedMessage
         return $this;
     }
 
-    public function getEditDate(): ?\DateTime
+    public function getEditDate(): ?DateTime
     {
         return $this->edit_date;
     }
 
-    public function setEditDate(?\DateTime $edit_date): static
+    public function setEditDate(?DateTime $edit_date): static
     {
         $this->edit_date = $edit_date;
 

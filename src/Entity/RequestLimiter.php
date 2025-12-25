@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\RequestLimiterRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +15,11 @@ class RequestLimiter
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $id = null {
+        get {
+            return $this->id;
+        }
+    }
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $chat_id = null;
@@ -26,12 +31,7 @@ class RequestLimiter
     private ?string $method = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $created_at = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    private ?DateTime $created_at = null;
 
     public function getChatId(): ?string
     {
@@ -69,12 +69,12 @@ class RequestLimiter
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTime $created_at): static
+    public function setCreatedAt(?DateTime $created_at): static
     {
         $this->created_at = $created_at;
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +15,11 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: Types::BIGINT)]
-    private ?string $id = null;
+    public ?string $id = null {
+        get {
+            return $this->id;
+        }
+    }
 
     #[ORM\Column(type: Types::BOOLEAN)]
     private ?bool $is_bot = false;
@@ -25,10 +30,10 @@ class User
     #[ORM\Column(type: Types::STRING, length: 255)]
     private ?string $last_name = null;
 
-    #[ORM\Column(type: Types::STRING,length: 191, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 191, nullable: true)]
     private ?string $username = null;
 
-    #[ORM\Column(type: Types::STRING,length: 10, nullable: true)]
+    #[ORM\Column(type: Types::STRING, length: 10, nullable: true)]
     private ?string $language_code = null;
 
     #[ORM\Column(type: Types::BOOLEAN)]
@@ -38,15 +43,10 @@ class User
     private ?bool $added_to_attachment_menu = false;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $created_at = null;
+    private ?DateTime $created_at = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE,nullable: true)]
-    private ?\DateTime $updated_at = null;
-
-    public function getId(): ?string
-    {
-        return $this->id;
-    }
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?DateTime $updated_at = null;
 
     public function isBot(): ?bool
     {
@@ -132,24 +132,24 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTime $created_at): static
+    public function setCreatedAt(?DateTime $created_at): static
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTime
+    public function getUpdatedAt(): ?DateTime
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?\DateTime $updated_at): static
+    public function setUpdatedAt(?DateTime $updated_at): static
     {
         $this->updated_at = $updated_at;
 

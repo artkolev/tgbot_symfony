@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\MessageRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,7 +41,7 @@ class Message
     private ?string $sender_boost_count = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $date = null;
+    private ?DateTime $date = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, cascade: ['persist'], inversedBy: 'forwaded_messages')]
     #[ORM\JoinColumn(name: 'forward_from', referencedColumnName: 'id', nullable: true)]
@@ -60,7 +61,7 @@ class Message
     private ?string $forward_sender_name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $forward_date = null;
+    private ?DateTime $forward_date = null;
 
     #[ORM\Column]
     private ?bool $is_topic_message = null;
@@ -92,7 +93,7 @@ class Message
     private ?string $link_preview_options = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $edit_date = null;
+    private ?DateTime $edit_date = null;
 
     #[ORM\Column]
     private ?bool $has_protected_content = null;
@@ -323,12 +324,12 @@ class Message
         return $this;
     }
 
-    public function getDate(): ?\DateTime
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }
 
-    public function setDate(?\DateTime $date): static
+    public function setDate(?DateTime $date): static
     {
         $this->date = $date;
 
@@ -395,12 +396,12 @@ class Message
         return $this;
     }
 
-    public function getForwardDate(): ?\DateTime
+    public function getForwardDate(): ?DateTime
     {
         return $this->forward_date;
     }
 
-    public function setForwardDate(?\DateTime $forward_date): static
+    public function setForwardDate(?DateTime $forward_date): static
     {
         $this->forward_date = $forward_date;
 
@@ -515,12 +516,12 @@ class Message
         return $this;
     }
 
-    public function getEditDate(): ?\DateTime
+    public function getEditDate(): ?DateTime
     {
         return $this->edit_date;
     }
 
-    public function setEditDate(?\DateTime $edit_date): static
+    public function setEditDate(?DateTime $edit_date): static
     {
         $this->edit_date = $edit_date;
 

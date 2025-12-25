@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Enum\PollTypeEnum;
 use App\Repository\PollRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -49,10 +50,10 @@ class Poll
     private ?int $open_period = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $close_date = null;
+    private ?DateTime $close_date = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $created_at = null;
+    private ?DateTime $created_at = null;
 
     public function getId(): ?int
     {
@@ -198,24 +199,24 @@ class Poll
         return $this;
     }
 
-    public function getCloseDate(): ?\DateTime
+    public function getCloseDate(): ?DateTime
     {
         return $this->close_date;
     }
 
-    public function setCloseDate(?\DateTime $close_date): static
+    public function setCloseDate(?DateTime $close_date): static
     {
         $this->close_date = $close_date;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTime $created_at): static
+    public function setCreatedAt(?DateTime $created_at): static
     {
         $this->created_at = $created_at;
 

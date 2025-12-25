@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Chat;
 use App\Entity\Message;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -43,7 +44,7 @@ class MessageRepository extends ServiceEntityRepository
 
         $messagesList = $paginator
             ->getQuery()
-            ->setFirstResult($pageSize * ($page-1))
+            ->setFirstResult($pageSize * ($page - 1))
             ->setMaxResults($pageSize)
             ->getResult();
 
@@ -63,9 +64,9 @@ class MessageRepository extends ServiceEntityRepository
             ->andWhere('m.chat = :chat')
             ->setParameter('chat', $chat)
             ->andWhere('m.date >= :start')
-            ->setParameter('start', new \DateTime()->format('Y-m-d 00:00:00'))
+            ->setParameter('start', new DateTime()->format('Y-m-d 00:00:00'))
             ->andWhere('m.date <= :end')
-            ->setParameter('end', new \DateTime()->format('Y-m-d 23:59:59'))
+            ->setParameter('end', new DateTime()->format('Y-m-d 23:59:59'))
             ->groupBy('m.user')
             ->orderBy('count', 'DESC')
             ->setMaxResults($limit)

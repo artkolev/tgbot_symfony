@@ -14,7 +14,11 @@ class TelegramUpdate
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?string $id = null;
+    private ?string $id = null {
+        get {
+            return $this->id;
+        }
+    }
 
     #[ORM\ManyToOne(targetEntity: Chat::class, cascade: ['persist'], inversedBy: 'TelegramUpdates')]
     #[ORM\JoinColumn(name: 'chat_id', referencedColumnName: 'id', nullable: false)]
@@ -89,11 +93,6 @@ class TelegramUpdate
     #[ORM\ManyToOne(targetEntity: ChatBoostRemoved::class, cascade: ['persist'], inversedBy: 'TelegramUpdates')]
     #[ORM\JoinColumn(name: 'chat_boost_removed_id', referencedColumnName: 'id', nullable: false)]
     private ?ChatBoostRemoved $chat_boost_removed_id = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getChat(): ?Chat
     {

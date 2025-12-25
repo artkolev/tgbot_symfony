@@ -23,7 +23,6 @@ use Psr\Log\LoggerInterface;
 
 abstract class UserBaseCommandService extends UserCommand
 {
-
     /**
      * @inheritDoc
      */
@@ -32,8 +31,7 @@ abstract class UserBaseCommandService extends UserCommand
         ?Update $update = null,
         protected readonly LoggerInterface $logger,
         protected readonly EntityManager $em,
-    )
-    {
+    ) {
         parent::__construct($telegram, $update);
     }
 
@@ -131,14 +129,14 @@ abstract class UserBaseCommandService extends UserCommand
         if (
             ($replyMessage = $this->getMessage()->getReplyToMessage())
             && ($replyFrom = $replyMessage->getFrom())
-            && ($replyFrom->getId() !== $this->getMessage()->getFrom()->getId())
+            && ($replyFrom->id !== $this->getMessage()->getFrom()->getId())
         ) {
             return sprintf(
                 '[%s](%s)',
                 $replyFrom->getFirstName() ?
                     trim($replyFrom->getFirstName() . ' ' . $replyFrom->getLastName()) :
                     $replyFrom->getUsername(),
-                sprintf('tg://user?id=%s', $replyFrom->getId())
+                sprintf('tg://user?id=%s', $replyFrom->id)
             );
         }
 
@@ -153,7 +151,6 @@ abstract class UserBaseCommandService extends UserCommand
      */
     public function preExecute(): ServerResponse
     {
-        /** @var Message $message */
         $message = $this->getMessage();
         TelegramLog::debug('message: ' . $message->toJson());
 

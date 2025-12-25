@@ -4,13 +4,11 @@ namespace App\Service\BotCommands\UserCommands;
 
 use App\Service\UserBaseCommandService;
 use Longman\TelegramBot\Commands\Command;
-use Longman\TelegramBot\Entities\Message;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
 
 class HelpCommand extends UserBaseCommandService
 {
-
     /**
      * @var string
      */
@@ -53,11 +51,6 @@ class HelpCommand extends UserBaseCommandService
      * @var bool
      */
     protected bool $needPrivateAccess = true;
-
-    /**
-     * @var Message $message
-     */
-    private Message $message;
 
     /**
      * @inheritdoc

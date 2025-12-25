@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ChatBoostUpdatedRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +15,11 @@ class ChatBoostUpdated
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?string $id = null;
+    private ?string $id = null {
+        get {
+            return $this->id;
+        }
+    }
 
     #[ORM\ManyToOne(targetEntity: Chat::class, cascade: ['persist'], inversedBy: 'ChatBoostsUpdated')]
     #[ORM\JoinColumn(name: 'chat_id', referencedColumnName: 'id', nullable: false)]
@@ -24,12 +29,7 @@ class ChatBoostUpdated
     private ?string $boost = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    private ?\DateTime $created_at = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    private ?DateTime $created_at = null;
 
     public function getChat(): ?Chat
     {
@@ -55,12 +55,12 @@ class ChatBoostUpdated
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTime $created_at): static
+    public function setCreatedAt(?DateTime $created_at): static
     {
         $this->created_at = $created_at;
 

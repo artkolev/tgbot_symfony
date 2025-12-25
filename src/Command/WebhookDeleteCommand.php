@@ -34,7 +34,7 @@ class WebhookDeleteCommand extends Command
         $io->note('Удаление вебхука в Telegram...');
 
         try {
-            $telegram = (new TelegramService($this->kernel, $this->entityManager, $this->logger))
+            $telegram = new TelegramService($this->kernel, $this->entityManager, $this->logger)
                 ->createTelegramService();
             $result = $telegram->deleteWebhook();
             if ($result->isOk()) {

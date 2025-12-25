@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\ChatBoostRemovedRepository;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +15,11 @@ class ChatBoostRemoved
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?string $id = null;
+    private ?string $id = null {
+        get {
+            return $this->id;
+        }
+    }
 
     #[ORM\ManyToOne(targetEntity: Chat::class, cascade: ['persist'], inversedBy: 'ChatBoostsRemoved')]
     #[ORM\JoinColumn(name: 'chat_id', referencedColumnName: 'id', nullable: false)]
@@ -24,18 +29,13 @@ class ChatBoostRemoved
     private ?string $boost_id = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTime $remove_date = null;
+    private ?DateTime $remove_date = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $source = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
-    private ?\DateTime $created_at = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    private ?DateTime $created_at = null;
 
     public function getChat(): ?Chat
     {
@@ -61,12 +61,12 @@ class ChatBoostRemoved
         return $this;
     }
 
-    public function getRemoveDate(): ?\DateTime
+    public function getRemoveDate(): ?DateTime
     {
         return $this->remove_date;
     }
 
-    public function setRemoveDate(\DateTime $remove_date): static
+    public function setRemoveDate(DateTime $remove_date): static
     {
         $this->remove_date = $remove_date;
 
@@ -85,12 +85,12 @@ class ChatBoostRemoved
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTime $created_at): static
+    public function setCreatedAt(?DateTime $created_at): static
     {
         $this->created_at = $created_at;
 

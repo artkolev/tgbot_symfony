@@ -46,7 +46,10 @@ class StartCommand extends UserBaseCommandService
      */
     public function execute(): ServerResponse
     {
-        //$message = $this->getMessage() ?: $this->getEditedMessage() ?: $this->getChannelPost() ?: $this->getEditedChannelPost();
+        //$message = $this->getMessage() ?:
+        // $this->getEditedMessage() ?:
+        // $this->getChannelPost() ?:
+        // $this->getEditedChannelPost();
         //$chat_id = $message->getChat()->getId();
         //$user_id = $message->getFrom()->getId();
         $data = [

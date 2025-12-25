@@ -5,7 +5,6 @@ namespace App\Command;
 use App\Service\TelegramService;
 use Doctrine\ORM\EntityManagerInterface;
 use Longman\TelegramBot\Exception\TelegramException;
-use Longman\TelegramBot\Telegram;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -37,7 +36,7 @@ class WebhookSetCommand extends Command
         $io->note('Установка вебхука в Telegram...');
 
         try {
-            $telegram = (new TelegramService($this->kernel, $this->entityManager, $this->logger))
+            $telegram = new TelegramService($this->kernel, $this->entityManager, $this->logger)
                 ->createTelegramService();
 
             $result = $telegram->setWebhook($this->urlGenerator->generate(
