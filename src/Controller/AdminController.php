@@ -133,8 +133,12 @@ final class AdminController extends AbstractController
     }
 
     #[Route('/messages/delete/{id}', name: '_messages_delete', methods: ['GET'])]
-    public function adminMessagesDelete($command, $chat_id, Request $request, MessageRepository $messageRepository): Response
-    {
+    public function adminMessagesDelete(
+        $command,
+        $chat_id,
+        Request $request,
+        MessageRepository $messageRepository
+    ): Response {
         $user = $messageRepository->findBy(['command' => $command, 'chat' => $chat_id]);
         return $this->render('admin/security_delete.html.twig', ['user' => $user]);
     }
