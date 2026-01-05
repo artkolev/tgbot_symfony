@@ -13,13 +13,15 @@ use Longman\TelegramBot\Telegram;
 use Longman\TelegramBot\TelegramLog;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 class TelegramService extends Telegram
 {
     public function __construct(
         private readonly KernelInterface $kernel,
         private readonly EntityManagerInterface $entityManager,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        protected readonly CacheInterface $cache
     ) {
         $bot_api_key  = $_ENV['BOT_API_KEY'];
         $bot_username = $_ENV['BOT_USERNAME'];
@@ -59,7 +61,13 @@ class TelegramService extends Telegram
             $command_class = $this->getCommandClassName($auth, $command, $filepath);
 
             if ($command_class) {
-                $command_obj = new $command_class($this, $this->update, $this->logger, $this->entityManager);
+                $command_obj = new $command_class(
+                    $this,
+                    $this->update,
+                    $this->logger,
+                    $this->entityManager,
+                    $this->cache,
+                );
 
                 if ($auth === Command::AUTH_SYSTEM && $command_obj instanceof SystemCommand) {
                     return $command_obj;

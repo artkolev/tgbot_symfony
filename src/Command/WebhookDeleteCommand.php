@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 #[AsCommand(
     name: 'app:webhook-delete',
@@ -22,7 +23,8 @@ class WebhookDeleteCommand extends Command
     public function __construct(
         private readonly KernelInterface $kernel,
         private readonly EntityManagerInterface $entityManager,
-        private readonly LoggerInterface $logger
+        private readonly LoggerInterface $logger,
+        protected readonly CacheInterface $cache
     ) {
         parent::__construct();
     }
@@ -34,7 +36,7 @@ class WebhookDeleteCommand extends Command
         $io->note('Удаление вебхука в Telegram...');
 
         try {
-            $telegram = new TelegramService($this->kernel, $this->entityManager, $this->logger)
+            $telegram = new TelegramService($this->kernel, $this->entityManager, $this->logger, $this->cache)
                 ->createTelegramService();
             $result = $telegram->deleteWebhook();
             if ($result->isOk()) {

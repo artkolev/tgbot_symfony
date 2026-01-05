@@ -67,8 +67,54 @@ class MessageRepository extends ServiceEntityRepository
             ->setParameter('start', new DateTime()->format('Y-m-d 00:00:00'))
             ->andWhere('m.date <= :end')
             ->setParameter('end', new DateTime()->format('Y-m-d 23:59:59'))
+            ->andWhere('u.is_bot = :is_bot')
+            ->setParameter('is_bot', 0)
             ->groupBy('m.user')
             ->orderBy('count', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function getPopularUsersByYear(Chat $chat, int $limit = 5): array
+    {
+        return $this
+            ->createQueryBuilder('m')
+            ->select('COUNT(m.id) as `count`, u.first_name, u.last_name, u.username')
+            ->innerJoin('m.user', 'u')
+            ->andWhere('m.chat = :chat')
+            ->setParameter('chat', $chat)
+            ->andWhere('m.date >= :start')
+            ->setParameter('start', new DateTime()->format('Y-01-01 00:00:00'))
+            ->andWhere('m.date <= :end')
+            ->setParameter('end', new DateTime()->format('Y-12-31 23:59:59'))
+            ->andWhere('u.is_bot = :is_bot')
+            ->setParameter('is_bot', 0)
+            ->groupBy('m.user')
+            ->having('count > 5')
+            ->orderBy('count', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function getQuietUsersByYear(Chat $chat, int $limit = 5): array
+    {
+        return $this
+            ->createQueryBuilder('m')
+            ->select('COUNT(m.id) as count, u.first_name, u.last_name, u.username')
+            ->innerJoin('m.user', 'u')
+            ->andWhere('m.chat = :chat')
+            ->setParameter('chat', $chat)
+            ->andWhere('m.date >= :start')
+            ->setParameter('start', new DateTime()->format('Y-01-01 00:00:00'))
+            ->andWhere('m.date <= :end')
+            ->setParameter('end', new DateTime()->format('Y-12-31 23:59:59'))
+            ->andWhere('u.is_bot = :is_bot')
+            ->setParameter('is_bot', 0)
+            ->groupBy('m.user')
+            ->having('count > 5')
+            ->orderBy('count', 'ASC')
             ->setMaxResults($limit)
             ->getQuery()
             ->getArrayResult();

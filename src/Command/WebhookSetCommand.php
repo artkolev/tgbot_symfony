@@ -13,6 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 #[AsCommand(
     name: 'app:webhook-set',
@@ -24,7 +25,8 @@ class WebhookSetCommand extends Command
         private readonly KernelInterface $kernel,
         private readonly EntityManagerInterface $entityManager,
         private readonly LoggerInterface $logger,
-        private readonly UrlGeneratorInterface $urlGenerator
+        private readonly UrlGeneratorInterface $urlGenerator,
+        protected readonly CacheInterface $cache
     ) {
         parent::__construct();
     }
@@ -36,7 +38,7 @@ class WebhookSetCommand extends Command
         $io->note('Установка вебхука в Telegram...');
 
         try {
-            $telegram = new TelegramService($this->kernel, $this->entityManager, $this->logger)
+            $telegram = new TelegramService($this->kernel, $this->entityManager, $this->logger, $this->cache)
                 ->createTelegramService();
 
             $result = $telegram->setWebhook($this->urlGenerator->generate(

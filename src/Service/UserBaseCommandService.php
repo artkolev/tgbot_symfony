@@ -20,6 +20,7 @@ use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 use Longman\TelegramBot\TelegramLog;
 use Psr\Log\LoggerInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 
 abstract class UserBaseCommandService extends UserCommand
 {
@@ -31,6 +32,7 @@ abstract class UserBaseCommandService extends UserCommand
         ?Update $update = null,
         protected readonly LoggerInterface $logger,
         protected readonly EntityManager $em,
+        protected readonly CacheInterface $cache
     ) {
         parent::__construct($telegram, $update);
     }
