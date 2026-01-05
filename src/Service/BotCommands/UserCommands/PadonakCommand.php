@@ -68,7 +68,7 @@ class PadonakCommand extends UserBaseCommandService
         $cacheKey = sha1(self::class . $text);
 
         TelegramLog::debug('Проверка наличия в кеше по ключу ' . $cacheKey);
-        $padonakText = $this->cache->get($cacheKey, function ($text, ItemInterface $item): string {
+        $padonakText = $this->cache->get($cacheKey, callback: function ($text, ItemInterface $item): string {
             $item->expiresAfter(3600);
 
             TelegramLog::debug('Кеш отсуствует, получаем с сервиса и сохраняем');
@@ -92,6 +92,7 @@ class PadonakCommand extends UserBaseCommandService
                 TelegramLog::error($e->getMessage());
             }
 
+            $padonakText = '';
             $key = 0;
             $strLen = mb_strlen($text);
 
