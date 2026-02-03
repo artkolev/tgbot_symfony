@@ -80,7 +80,7 @@ class MessageRepository extends ServiceEntityRepository
     {
         return $this
             ->createQueryBuilder('m')
-            ->select('COUNT(m.id) as `count`, u.first_name, u.last_name, u.username')
+            ->select('COUNT(m.id) as count, u.first_name, u.last_name, u.username')
             ->innerJoin('m.user', 'u')
             ->andWhere('m.chat = :chat')
             ->setParameter('chat', $chat)
